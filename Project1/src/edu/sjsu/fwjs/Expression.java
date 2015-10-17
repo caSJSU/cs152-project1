@@ -73,8 +73,11 @@ class BinOpExpr implements Expression {
     @SuppressWarnings("incomplete-switch")
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        int intVal1 = Integer.parseInt(e1.evaluate(env).toString());
-        int intVal2 = Integer.parseInt(e2.evaluate(env).toString());
+        IntVal i1 = (IntVal) e1.evaluate(env);
+        IntVal i2 = (IntVal) e2.evaluate(env);
+        
+        int intVal1 = i1.toInt();
+        int intVal2 = i2.toInt();
 
         if (op.equals(Op.ADD)) {
             return new IntVal(intVal1 + intVal2);
@@ -121,10 +124,10 @@ class IfExpr implements Expression {
         Boolean test = Boolean.parseBoolean(cond.evaluate(env).toString());
         if (test) {
             return thn.evaluate(env);
-        } else {
+        } else if (!test) {
             return els.evaluate(env);
         }
-//        return null;
+        return null;
     }
 }
 
@@ -181,6 +184,8 @@ class VarDeclExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+//        env.createVar(varName, exp.evaluate(env));
+        
         return null;
     }
 }
@@ -199,6 +204,7 @@ class AssignExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+//        env.updateVar(varName, e.evaluate(env));
         return null;
     }
 }
