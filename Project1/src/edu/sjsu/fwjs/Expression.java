@@ -73,6 +73,31 @@ class BinOpExpr implements Expression {
     @SuppressWarnings("incomplete-switch")
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+        int intVal1 = Integer.parseInt(e1.evaluate(env).toString());
+        int intVal2 = Integer.parseInt(e2.evaluate(env).toString());
+
+        if (op.equals(Op.ADD)) {
+            return new IntVal(intVal1 + intVal2);
+        } else if (op.equals(Op.DIVIDE)) {
+            return new IntVal(intVal1 / intVal2);
+        } else if (op.equals(Op.EQ)) {
+            return new IntVal(intVal1);
+        } else if (op.equals(Op.GE)) {
+            return new IntVal(intVal1); //???
+        } else if (op.equals(Op.GT)) {
+            return new IntVal(intVal1); //???
+        } else if (op.equals(Op.LE)) {
+            return new IntVal(intVal2); //???
+        } else if (op.equals(Op.LT)) {
+            return new IntVal(intVal2); //???
+        } else if (op.equals(Op.MOD)) {
+            return new IntVal(intVal1 % intVal2);
+        } else if (op.equals(Op.MULTIPLY)) {
+            return new IntVal(intVal1 * intVal2);
+        } else if (op.equals(Op.SUBTRACT)) {
+            return new IntVal(intVal1 - intVal2);
+        }
+
         return null;
     }
 }
@@ -92,7 +117,14 @@ class IfExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        return null;
+        
+        Boolean test = Boolean.parseBoolean(cond.evaluate(env).toString());
+        if (test) {
+            return thn.evaluate(env);
+        } else {
+            return els.evaluate(env);
+        }
+//        return null;
     }
 }
 
@@ -108,6 +140,14 @@ class WhileExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+        
+//        Boolean condition = Boolean.parseBoolean(cond.evaluate(env).toString());
+//        while (condition) {
+//            body.evaluate(env); 
+//            System.out.println("Body: " + body.evaluate(env));
+//            condition = Boolean.parseBoolean(cond.evaluate(env).toString());
+//        } //how does this work????
+        
         return null;
     }
 }
@@ -124,6 +164,7 @@ class SeqExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+
         return null;
     }
 }

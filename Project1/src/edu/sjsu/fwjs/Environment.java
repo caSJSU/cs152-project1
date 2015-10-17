@@ -28,6 +28,16 @@ public class Environment {
      */
     public Value resolveVar(String varName) {
         // YOUR CODE HERE
+        
+        //check current scope for variable name
+        if (env.containsKey(varName)) {
+            String key = varName;
+            return env.get(key);
+        } else if (outerEnv.env.containsKey(varName)) {
+            
+        }
+        //still need to check outer scope
+        
         return null;
     }
 
@@ -38,6 +48,14 @@ public class Environment {
      */
     public void updateVar(String key, Value v) {
         // YOUR CODE HERE
+        
+        if (env.containsKey(key)) {
+            env.remove(key); //take out old key/value pair
+            env.put(key, v); //replace with updated key/value pair
+        } else {
+            //store var in global scope
+            outerEnv.createVar(key, v);
+        }
     }
 
     /**
@@ -47,5 +65,11 @@ public class Environment {
      */
     public void createVar(String key, Value v) {
         // YOUR CODE HERE
+        
+        if (env.containsKey(key)) {
+            throw new RuntimeException();
+        } else {
+            env.put(key, v);
+        }
     }
 }
