@@ -86,13 +86,13 @@ class BinOpExpr implements Expression {
         } else if (op.equals(Op.EQ)) {
             return new IntVal(intVal1);
         } else if (op.equals(Op.GE)) {
-            return new IntVal(intVal1); //???
+            return new BoolVal(true); //???
         } else if (op.equals(Op.GT)) {
-            return new IntVal(intVal1); //???
+            return new BoolVal(true); //???
         } else if (op.equals(Op.LE)) {
-            return new IntVal(intVal2); //???
+            return new BoolVal(true); //???
         } else if (op.equals(Op.LT)) {
-            return new IntVal(intVal2); //???
+            return new BoolVal(true); //???
         } else if (op.equals(Op.MOD)) {
             return new IntVal(intVal1 % intVal2);
         } else if (op.equals(Op.MULTIPLY)) {
@@ -143,12 +143,13 @@ class WhileExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        
+        System.out.println("Condition: ");
 //        Boolean condition = Boolean.parseBoolean(cond.evaluate(env).toString());
 //        while (condition) {
 //            body.evaluate(env); 
 //            System.out.println("Body: " + body.evaluate(env));
 //            condition = Boolean.parseBoolean(cond.evaluate(env).toString());
+//            System.out.println("Condition: " + cond.evaluate(env));
 //        } //how does this work????
         
         return null;
@@ -167,6 +168,12 @@ class SeqExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+        try {
+            e1.evaluate(env);
+            e2.evaluate(env);
+        } catch(Error e) {
+            
+        }
 
         return null;
     }
@@ -184,8 +191,7 @@ class VarDeclExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-//        env.createVar(varName, exp.evaluate(env));
-        
+        env.createVar(varName, exp.evaluate(env));
         return null;
     }
 }
@@ -204,8 +210,8 @@ class AssignExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-//        env.updateVar(varName, e.evaluate(env));
-        return null;
+        env.updateVar(varName, e.evaluate(env));
+        return e.evaluate(env);
     }
 }
 
@@ -221,6 +227,7 @@ class FunctionDeclExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+       
         return null;
     }
 }
@@ -237,6 +244,9 @@ class FunctionAppExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+        
+        
+        
         return null;
     }
 }

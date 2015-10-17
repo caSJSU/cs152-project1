@@ -34,7 +34,7 @@ public class Environment {
             String key = varName;
             return env.get(key);
         } else if (outerEnv.env.containsKey(varName)) {
-            
+            return null;
         }
         //still need to check outer scope
         
