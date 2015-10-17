@@ -120,14 +120,13 @@ class IfExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        
-        Boolean test = Boolean.parseBoolean(cond.evaluate(env).toString());
-        if (test) {
+        BoolVal condition = (BoolVal) cond.evaluate(env);
+        if (condition.toBoolean()) {
             return thn.evaluate(env);
-        } else if (!test) {
+        } else {
             return els.evaluate(env);
         }
-        return null;
+//        return null;
     }
 }
 
@@ -143,14 +142,12 @@ class WhileExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        System.out.println("Condition: ");
-//        Boolean condition = Boolean.parseBoolean(cond.evaluate(env).toString());
-//        while (condition) {
-//            body.evaluate(env); 
-//            System.out.println("Body: " + body.evaluate(env));
-//            condition = Boolean.parseBoolean(cond.evaluate(env).toString());
-//            System.out.println("Condition: " + cond.evaluate(env));
-//        } //how does this work????
+        System.out.println("While");
+        BoolVal condition = (BoolVal) cond.evaluate(env);
+        while (condition.toBoolean()) {
+            System.out.println("Cond=" + cond.evaluate(env) + "\tBody=" + body.evaluate(env));
+            body.evaluate(env); 
+        } //how does this work????
         
         return null;
     }
@@ -168,12 +165,8 @@ class SeqExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        try {
-            e1.evaluate(env);
-            e2.evaluate(env);
-        } catch(Error e) {
-            
-        }
+        e1.evaluate(env);
+        e2.evaluate(env);
 
         return null;
     }
