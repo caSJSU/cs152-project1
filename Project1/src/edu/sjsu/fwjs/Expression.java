@@ -203,6 +203,7 @@ class AssignExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
+        
         env.updateVar(varName, e.evaluate(env));
         return e.evaluate(env);
     }
@@ -220,8 +221,15 @@ class FunctionDeclExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-       
-        return null;
+        //set up the closure so it will return environment ready for FuncAppExpr
+        
+        ClosureVal val = new ClosureVal(params, body, env) {
+            
+        };
+        
+        //return a closure 
+//        return val;
+        return new ClosureVal(params, body, env);
     }
 }
 
@@ -232,15 +240,12 @@ class FunctionAppExpr implements Expression {
     private Expression f;
     private List<Expression> args;
     public FunctionAppExpr(Expression f, List<Expression> args) {
-        this.f = f;
-        this.args = args;
+        this.f = f; //FunctionAppExpr takes an expression (which should evaluate to a closure)
+        this.args = args; //and a list of arguments.
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        
-        
-        
-        return null;
+        return null; 
     }
 }
 

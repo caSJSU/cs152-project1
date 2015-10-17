@@ -43,20 +43,26 @@ public class Environment {
     /**
      * Used for updating existing variables.
      * If a variable has not been defined previously in the current scope,
-     * or any of the function's outer scopes, the var is stored in the global scope.
+     * or any of the function's outer scopes,
+     * the var is stored in the global scope.
      */
     public void updateVar(String key, Value v) {
-        // YOUR CODE HERE
+    // YOUR CODE HERE
 
         if (env.containsKey(key)) {
             env.put(key, v); //replace with updated key/value pair
-        } else if (outerEnv.env.containsKey(key)) {
-            outerEnv.env.put(key, v);
+        } else if (outerEnv != null) {
+            if (outerEnv.env.containsKey(key)) {
+                outerEnv.env.put(key, v);
+            }
         } else {
-            //store var in global scope
-            outerEnv.createVar(key, v);
+        //store var in global scope
+            if (outerEnv != null) {
+                outerEnv.createVar(key, v);
+            } else { //this = global environment
+                this.createVar(key, v);
+            }
         }
-        
     }
 
     /**
