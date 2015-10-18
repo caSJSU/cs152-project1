@@ -147,12 +147,13 @@ class WhileExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        System.out.println("While");
-        BoolVal condition = (BoolVal) cond.evaluate(env);
-        while (condition.toBoolean()) {
-            System.out.println("Cond=" + cond.evaluate(env) + "\tBody=" + body.evaluate(env));
+        IntVal condition = (IntVal) cond.evaluate(env);
+        IntVal fals = new IntVal(0);
+
+        while (!condition.equals(fals)) {
             body.evaluate(env); 
-        } //how does this work????
+            condition = (IntVal) cond.evaluate(env);
+        }
         
         return null;
     }
