@@ -84,15 +84,20 @@ class BinOpExpr implements Expression {
         } else if (op.equals(Op.DIVIDE)) {
             return new IntVal(intVal1 / intVal2);
         } else if (op.equals(Op.EQ)) {
-            return new IntVal(intVal1);
+            int cmp = (intVal1 == intVal2) ? 1:0;
+            return new IntVal(cmp);
         } else if (op.equals(Op.GE)) {
-            return new BoolVal(true); //???
+            int cmp = (intVal1 >= intVal2) ? 1:0;
+            return new IntVal(cmp);
         } else if (op.equals(Op.GT)) {
-            return new BoolVal(true); //???
+            int cmp = (intVal1 > intVal2) ? 1:0;
+            return new IntVal(cmp);
         } else if (op.equals(Op.LE)) {
-            return new BoolVal(true); //???
+            int cmp = (intVal1 <= intVal2) ? 1:0;
+            return new IntVal(cmp);
         } else if (op.equals(Op.LT)) {
-            return new BoolVal(true); //???
+            int cmp = (intVal1 < intVal2) ? 1:0;
+            return new IntVal(cmp);
         } else if (op.equals(Op.MOD)) {
             return new IntVal(intVal1 % intVal2);
         } else if (op.equals(Op.MULTIPLY)) {

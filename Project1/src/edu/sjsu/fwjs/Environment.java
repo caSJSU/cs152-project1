@@ -32,8 +32,10 @@ public class Environment {
         //check current scope for variable name
         if (this.env.containsKey(varName)) {
             return this.env.get(varName);
-        } else if (outerEnv.env.containsKey(varName)) {
-            return null;
+        } else if (outerEnv != null) {
+            if(outerEnv.env.containsKey(varName)) {
+                return null;
+            }
         }
         //still need to check outer scope
         
