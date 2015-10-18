@@ -39,7 +39,7 @@ public class Environment {
         }
         //still need to check outer scope
         
-        return null;
+        return new NullVal();
     }
 
     /**

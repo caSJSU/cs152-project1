@@ -172,8 +172,7 @@ class SeqExpr implements Expression {
         // YOUR CODE HERE
         e1.evaluate(env);
         e2.evaluate(env);
-
-        return null;
+        return e2.evaluate(env);
     }
 }
 
