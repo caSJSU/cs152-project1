@@ -28,43 +28,37 @@ public class Environment {
      */
     public Value resolveVar(String varName) {
         // YOUR CODE HERE
-        
-        //check current scope for variable name
         if (this.env.containsKey(varName)) {
             return this.env.get(varName);
-        } else if (outerEnv != null) {
-            if(outerEnv.env.containsKey(varName)) {
-                return null;
-            }
+        } else if (outerEnv != null) { //non-global scope
+            outerEnv.resolveVar(varName);
+        } else if(outerEnv == null) { //we're in the global environment 
+            System.out.println("return null val 1");
+            return new NullVal();
         }
-        //still need to check outer scope
-        
+        System.out.println("return null val 2");
         return new NullVal();
     }
 
     /**
      * Used for updating existing variables.
      * If a variable has not been defined previously in the current scope,
-     * or any of the function's outer scopes,
-     * the var is stored in the global scope.
+     * or any of the function's outer scopes, the var is stored in the global scope.
      */
     public void updateVar(String key, Value v) {
-    // YOUR CODE HERE
-
+        // YOUR CODE HERE
         if (env.containsKey(key)) {
             env.put(key, v); //replace with updated key/value pair
-        } else if (outerEnv != null) {
-            if (outerEnv.env.containsKey(key)) {
-                outerEnv.env.put(key, v);
-            }
-        } else {
-        //store var in global scope
-            if (outerEnv != null) {
-                outerEnv.createVar(key, v);
-            } else { //this = global environment
-                this.createVar(key, v);
-            }
-        }
+        } else if (outerEnv != null) { //if we're in a non-global environment
+
+//          if(outerEnv.env.containsKey(key)) {
+//          outerEnv.env.put(key, v);
+//      }
+            System.out.println("outer env calls update var");
+            outerEnv.updateVar(key, v); 
+        } else if(outerEnv == null) { //we're in the global environment (outermost)
+            this.createVar(key, v);
+        }  
     }
 
     /**
@@ -74,7 +68,6 @@ public class Environment {
      */
     public void createVar(String key, Value v) {
         // YOUR CODE HERE
-        
         if (env.containsKey(key)) {
             throw new RuntimeException();
         } else {
