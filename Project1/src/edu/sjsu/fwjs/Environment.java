@@ -34,10 +34,8 @@ public class Environment {
         } else if (outerEnv != null) { //non-global scope
             outerEnv.resolveVar(varName);
         } else if(outerEnv == null) { //we're in the global environment 
-            System.out.println("return null val 1");
             return new NullVal();
         }
-        System.out.println("return null val 2");
         return new NullVal();
     }
 
@@ -51,11 +49,6 @@ public class Environment {
         if (env.containsKey(key)) {
             env.put(key, v); //replace with updated key/value pair
         } else if (outerEnv != null) { //if we're in a non-global environment
-
-//          if(outerEnv.env.containsKey(key)) {
-//          outerEnv.env.put(key, v);
-//      }
-            System.out.println("outer env calls update var");
             outerEnv.updateVar(key, v); 
         } else if(outerEnv == null) { //we're in the global environment (outermost)
             this.createVar(key, v);

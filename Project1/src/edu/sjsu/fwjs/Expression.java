@@ -174,13 +174,10 @@ class SeqExpr implements Expression {
         Value v1 = e1.evaluate(env);
         Value v2 = e2.evaluate(env);
         if(!v1.equals(new NullVal()) && v2.equals(new NullVal())) {
-            System.out.println("v1 returned");
             return v1;
         } else if (!v2.equals(new NullVal()))  {
-            System.out.println("v2 returned");
             return v2;
         } else {
-            System.out.println("elseeee");
             return new NullVal();
         }
     }
