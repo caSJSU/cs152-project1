@@ -171,10 +171,18 @@ class SeqExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        e1.evaluate(env);
-//        e2.evaluate(env);
-        return e2.evaluate(env);
-//        return null;
+        Value v1 = e1.evaluate(env);
+        Value v2 = e2.evaluate(env);
+        if(!v1.equals(new NullVal()) && v2.equals(new NullVal())) {
+            System.out.println("v1 returned");
+            return v1;
+        } else if (!v2.equals(new NullVal()))  {
+            System.out.println("v2 returned");
+            return v2;
+        } else {
+            System.out.println("elseeee");
+            return new NullVal();
+        }
     }
 }
 
@@ -190,8 +198,9 @@ class VarDeclExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        env.createVar(varName, exp.evaluate(env));
-        return null;
+        Value v = exp.evaluate(env);
+        env.createVar(varName, v);
+        return v;
     }
 }
 
