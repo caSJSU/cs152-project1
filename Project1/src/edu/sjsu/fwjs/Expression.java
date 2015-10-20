@@ -69,7 +69,7 @@ class BinOpExpr implements Expression {
         this.e1 = e1;
         this.e2 = e2;
     }
-    
+
     @SuppressWarnings("incomplete-switch")
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
@@ -78,7 +78,7 @@ class BinOpExpr implements Expression {
         
         int intVal1 = i1.toInt();
         int intVal2 = i2.toInt();
-        
+
         if (op.equals(Op.ADD)) {
             return new IntVal(intVal1 + intVal2);
         } else if (op.equals(Op.DIVIDE)) {
@@ -105,7 +105,7 @@ class BinOpExpr implements Expression {
         } else if (op.equals(Op.SUBTRACT)) {
             return new IntVal(intVal1 - intVal2);
         }
-        
+
         return null;
     }
 }
@@ -131,6 +131,7 @@ class IfExpr implements Expression {
         } else {
             return els.evaluate(env);
         }
+//        return null;
     }
 }
 
@@ -148,9 +149,9 @@ class WhileExpr implements Expression {
         // YOUR CODE HERE
         IntVal condition = (IntVal) cond.evaluate(env);
         IntVal fals = new IntVal(0);
-        
+
         while (!condition.equals(fals)) {
-            body.evaluate(env);
+            body.evaluate(env); 
             condition = (IntVal) cond.evaluate(env);
         }
         
@@ -171,8 +172,9 @@ class SeqExpr implements Expression {
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
         e1.evaluate(env);
+//        e2.evaluate(env);
         return e2.evaluate(env);
-        //        return null;
+//        return null;
     }
 }
 
@@ -227,6 +229,7 @@ class FunctionDeclExpr implements Expression {
         //set up the closure so it will return environment ready for FuncAppExpr
         ClosureVal val = new ClosureVal(params, body, env) {};
         env.createVar(val.toString(), val);
+//        return new ClosureVal(params, body, env);
         return val;
     }
 }
@@ -243,11 +246,6 @@ class FunctionAppExpr implements Expression {
     }
     public Value evaluate(Environment env) {
         // YOUR CODE HERE
-        //    	FunctionAppExpr takes an expression (which should evaluate to a closure) and a list of
-        //    	arguments.  When evaluated, the environment is ignored.  Instead a new environment is
-        //    	created including all of the parameters with the arguments bound to the parameter names.
-        //    	Note that you will need to evaluate each argument to a value before the closure.apply method
-        //    	can be used.
         
         ClosureVal cv = (ClosureVal) f.evaluate(env);
         List<Value> argsEval = new ArrayList<Value>();

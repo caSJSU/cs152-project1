@@ -10,7 +10,8 @@ public class Environment {
     /**
      * Constructor for global environment
      */
-    public Environment() {}
+    public Environment() {
+    }
 
     /**
      * Constructor for local environment of a function
